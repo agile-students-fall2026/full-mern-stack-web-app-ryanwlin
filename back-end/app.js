@@ -11,6 +11,7 @@ app.use(cors()) // allow cross-origin resource sharing
 // use express's builtin body-parser middleware to parse any data included in a request
 app.use(express.json()) // decode JSON-formatted incoming POST data
 app.use(express.urlencoded({ extended: true })) // decode url-encoded incoming POST data
+app.use(express.static('public'))
 
 // connect to database
 mongoose
@@ -76,6 +77,22 @@ app.post('/messages/save', async (req, res) => {
       status: 'failed to save the message to the database',
     })
   }
+})
+
+// About us page
+app.get('/about', (req, res) => {
+  res.json({
+    name: 'Ryan Lin',
+    paragraphs: [
+      "I'm Ryan Lin, a senior at NYU studying Computer Science in CAS, with a minor in Data Science.",
+      "I am originally from the Bay Area and I have been living in New York in the East Village area for the past 3 years for school.",
+      'I have spent the past two summers interning in San Francisco at Salesforce as a software engineer, which I enjoyed immensely and learned a lot from.',
+      'Outside of school and work, I like to run, work out, and cook. I also love traveling and have been to 35 countries.',
+      "I have learned a lot during my time at NYU and can't wait to translate my learnings into the real world, but before I graduate, I want to enjoy my final year in college.",
+    ],
+    imageUrl: 'http://localhost:5002/ryan.jpg',
+    status: 'all good',
+  })
 })
 
 // export the express app we created to make it available to other modules
